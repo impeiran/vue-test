@@ -38,12 +38,15 @@ export default {
       'SET_AUDIO_SRC', 'SET_AUDIO_STATE'
     ]),
 
-    musicInBrowserHandler () {
-      this.$nextTick(() => {
-        console.log('object')
-        this.$refs.audioEl.load()
-      })
-      document.body.removeEventListener('touchstart', this.musicInBrowserHandler)
+    musicInMobileHandler () {
+      const handlerFunc = () => {
+        this.$nextTick(() => {
+          console.log('object')
+          this.$refs.audioEl.load()
+        })
+        document.body.removeEventListener('touchstart', handlerFunc)
+      }
+      document.body.addEventListener('touchstart', handlerFunc)
     }
   },
 
@@ -62,7 +65,7 @@ export default {
   },
 
   mounted () {
-    document.body.addEventListener('touchstart', this.musicInBrowserHandler)
+    this.musicInMobileHandler()
   }
 }
 </script>
